@@ -98,13 +98,23 @@ TEAM_DATA = [
 
 ROADMAP_DATA = [
     {
+        "phase": "Core Tech",
+        "timeline": "Completed - Q3 2025",
+        "title": "Software Stack Validation",
+        "items": [
+            "AbhiRaman Optimizer: Proprietary path planning algorithm",
+            "Reinforcement Learning (RL) Controller for autonomous flight",
+            "Computer Vision: Advanced object detection & visual servoing"
+        ]
+    },
+    {
         "phase": "Foundation",
         "timeline": "Q4 2025 - Q2 2026",
-        "title": "Hardware Integration & Testing",
+        "title": "Hardware Integration & Digital Twin",
         "items": [
-            "AbhiRaman Optimizer validation",
-            "Hardware-in-the-Loop (HIL) testing",
-            "Proprietary propeller efficiency tests"
+            "Hardware-in-the-Loop (HIL) simulation testing",
+            "Digital Twin environment for risk-free training",
+            "Proprietary low-noise propeller development (<60 dBA)"
         ]
     },
     {
@@ -112,9 +122,9 @@ ROADMAP_DATA = [
         "timeline": "Q3 2026 - Q4 2026",
         "title": "Approvals & Pilot Onboarding",
         "items": [
-            "Regulatory compliance certifications",
-            "Partnering with key solar farms",
-            "Phase 1 pilot setup"
+            "Regulatory compliance certifications (DGCA/FAA)",
+            "Partnering with key solar farms for beta testing",
+            "Phase 1 pilot setup with 100MW capacity target"
         ]
     },
     {
@@ -122,19 +132,9 @@ ROADMAP_DATA = [
         "timeline": "Q1 2027 - Q2 2027",
         "title": "Initial Pilot Deployment",
         "items": [
-            "First field operations",
-            "Real-world data collection",
-            "Performance benchmarking"
-        ]
-    },
-    {
-        "phase": "Expansion",
-        "timeline": "Q1 2028+",
-        "title": "Global Expansion",
-        "items": [
-            "Commercial partnerships",
-            "Global market entry",
-            "Fleet scaling"
+            "First autonomous field operations",
+            "Real-world data collection & model fine-tuning",
+            "Performance benchmarking against manual cleaning"
         ]
     }
 ]
@@ -158,7 +158,7 @@ PRODUCTS_DATA = [
     },
     {
         "id": "haanth",
-        "name": "Haanth",
+        "name": "Adventures of Haanth",
         "tagline": "Learn to Fly. Grow to Lead.",
         "description": "A narrative-driven drone flight simulator designed to merge drone mechanics education with an engaging emotional narrative and gamification.",
         "type": "game",
