@@ -106,7 +106,7 @@ PRODUCTS_DATA = [
         "description": "We are building a UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision. Launching Soon.",
         "type": "hardware",
         "status": "coming_soon",
-        "image_url": "https://images.unsplash.com/photo-1619008054864-2d47431982a2",
+        "image_url": "https://images.unsplash.com/photo-1701120287063-30bcbec1d65d",
         "features": [
             {"title": "Critical Water Conservation", "description": "Will save millions of liters annually using targeted dry and wet spotless cleaning. Targeting 5-30mL per panel.", "icon_name": "Droplets"},
             {"title": "AI-Driven Precision", "description": "Developing proprietary AbhiRaman path optimization and advanced AI for optimal cleaning paths.", "icon_name": "Cpu"},
