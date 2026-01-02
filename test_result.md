@@ -10,7 +10,7 @@
 ## Testing Agent Verification (January 2, 2026)
 
 ### ✅ PASSED TESTS:
-1. **Home Page Navigation**: Successfully loads at https://tech-innovators-45.preview.emergentagent.com
+1. **Home Page Navigation**: Successfully loads at https://chakrakh-tech-1.preview.emergentagent.com
 2. **Suryagatra Image Update**: ✅ Verified image src contains new Unsplash ID '1753781467329-416d05e7e477'
 3. **Theme Toggle Presence**: ✅ Sun/Moon icon button found in navbar with proper aria-label
 4. **Theme Toggle Functionality**: ✅ HTML element class changes correctly between 'light' and 'dark'
