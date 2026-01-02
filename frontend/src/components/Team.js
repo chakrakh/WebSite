@@ -23,33 +23,48 @@ const Team = () => {
   }, []);
 
   if (loading) {
-    return <div className="py-20 text-center">Loading Team...</div>;
+    return <div className="py-20 text-center text-primary font-mono animate-pulse">Initializing Team Protocol...</div>;
   }
 
   return (
-    <div id="team" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">Meet Our Visionaries</h2>
-          <p className="mt-4 text-xl text-gray-500">The minds behind the revolution.</p>
+    <div id="team" className="py-24 bg-[#050508] relative">
+       {/* Background Grid */}
+       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-20">
+          <h2 className="text-3xl font-extrabold text-white sm:text-5xl drop-shadow-lg">
+            <span className="border-b-4 border-accent pb-2">Meet Our Visionaries</span>
+          </h2>
+          <p className="mt-8 text-xl text-gray-400 font-mono">The minds behind the revolution.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {team.map((member, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="h-64 overflow-hidden">
+            <div key={index} className="group relative bg-card border border-white/10 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500">
+              {/* Glow effect on hover */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-0 group-hover:opacity-20 transition duration-500 blur-lg"></div>
+              
+              <div className="relative h-80 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-60"></div>
                 <img 
-                  className="w-full h-full object-cover object-center" 
+                  className="w-full h-full object-cover object-center transform transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0" 
                   src={member.image_url} 
                   alt={member.name} 
                 />
               </div>
-              <div className="p-8">
-                <div className="uppercase tracking-wide text-sm text-blue-500 font-semibold">{member.role}</div>
-                <h3 className="block mt-1 text-lg leading-tight font-bold text-black">{member.name}</h3>
-                <ul className="mt-4 text-gray-500 list-disc list-inside space-y-2">
+              
+              <div className="relative p-8 z-20 -mt-12">
+                <div className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-black uppercase bg-primary rounded-full shadow-[0_0_10px_rgba(0,240,255,0.6)]">
+                    {member.role}
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors">{member.name}</h3>
+                <ul className="text-gray-400 space-y-2 text-sm">
                   {member.bio.map((item, i) => (
-                    <li key={i} className="text-sm">{item}</li>
+                    <li key={i} className="flex items-start">
+                        <span className="mr-2 text-accent mt-1">▹</span>
+                        {item}
+                    </li>
                   ))}
                 </ul>
               </div>
