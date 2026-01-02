@@ -5,3 +5,24 @@
 html {
   scroll-behavior: smooth;
 }
+
+body {
+  background-color: #0a0a0f;
+  color: #e0e0e0;
+}
+
+.futuristic-text {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.futuristic-card {
+  background: rgba(19, 19, 31, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.futuristic-card:hover {
+    border-color: rgba(0, 240, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}

@@ -74,7 +74,7 @@ TEAM_DATA = [
             "Skill India 2024 medalist in renewable energy.",
             "Expertise in Quantum Technologies, IoT, and AI/ML."
         ],
-        "image_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+        "image_url": "https://customer-assets.emergentagent.com/job_tech-innovators-45/artifacts/zp9i5512_image.png"
     },
     {
         "name": "Prof N Satyanarayana (Wisdom)",
@@ -84,7 +84,7 @@ TEAM_DATA = [
             "Over 45 years of expertise in Materials Science and renewable energy.",
             "Published 150+ papers and completed 22 research projects."
         ],
-        "image_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop"
+        "image_url": "https://customer-assets.emergentagent.com/job_tech-innovators-45/artifacts/4b76ymo4_image.png"
     },
     {
         "name": "Mr Rao Ambati (Impact)",
@@ -94,7 +94,7 @@ TEAM_DATA = [
             "Specialist in Change and Release Management across global markets.",
             "Expertise in Retail, Telecom, Banking, and Energy sectors."
         ],
-        "image_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop"
+        "image_url": "https://customer-assets.emergentagent.com/job_tech-innovators-45/artifacts/12cssvm9_image.png"
     }
 ]
 
@@ -106,7 +106,7 @@ PRODUCTS_DATA = [
         "description": "We are building a UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision. Launching Soon.",
         "type": "hardware",
         "status": "coming_soon",
-        "image_url": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=1000&auto=format&fit=crop",
+        "image_url": "https://images.unsplash.com/photo-1619008054864-2d47431982a2",
         "features": [
             {"title": "Critical Water Conservation", "description": "Will save millions of liters annually using targeted dry and wet spotless cleaning. Targeting 5-30mL per panel.", "icon_name": "Droplets"},
             {"title": "AI-Driven Precision", "description": "Developing proprietary AbhiRaman path optimization and advanced AI for optimal cleaning paths.", "icon_name": "Cpu"},
