@@ -1,19 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import LaunchHaanth from "./pages/LaunchHaanth";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import LaunchHaanth from './pages/LaunchHaanth';
+import { ThemeProvider } from './components/ThemeContext';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <ThemeProvider>
+      <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/launch-haanth" element={<LaunchHaanth />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
