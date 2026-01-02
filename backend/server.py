@@ -6,7 +6,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
-from typing import List, Optional
+from typing import List, Optional, Any
 import uuid
 from datetime import datetime, timezone
 
@@ -47,7 +47,21 @@ class RoadmapItem(BaseModel):
     title: str
     items: List[str]
 
-# Data (Hardcoded for this MVP version, but served via API)
+class ProductFeature(BaseModel):
+    title: str
+    description: str
+    icon_name: str  # We'll send the icon name string and map it on frontend
+
+class Product(BaseModel):
+    id: str
+    name: str
+    tagline: str
+    description: str
+    features: List[ProductFeature]
+    image_url: Optional[str] = None
+    type: str # 'hardware', 'software', 'game'
+
+# Data
 TEAM_DATA = [
     {
         "name": "Hridayesh Behl (Heart)",
@@ -58,7 +72,7 @@ TEAM_DATA = [
             "Skill India 2024 medalist in renewable energy.",
             "Expertise in Nanotechnology, Battery Technologies, IoT, and AI/ML."
         ],
-        "image_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop" # Placeholder
+        "image_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
     },
     {
         "name": "Prof N Satyanarayana (Wisdom)",
@@ -68,7 +82,7 @@ TEAM_DATA = [
             "Over 45 years of expertise in Materials Science and renewable energy.",
             "Published 150+ papers and completed 22 research projects."
         ],
-        "image_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop" # Placeholder
+        "image_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop"
     },
     {
         "name": "Mr Rao Ambati (Impact)",
@@ -78,7 +92,7 @@ TEAM_DATA = [
             "Specialist in Change and Release Management across global markets.",
             "Expertise in Retail, Telecom, Banking, and Energy sectors."
         ],
-        "image_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop" # Placeholder
+        "image_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop"
     }
 ]
 
@@ -125,6 +139,41 @@ ROADMAP_DATA = [
     }
 ]
 
+PRODUCTS_DATA = [
+    {
+        "id": "suryagatra",
+        "name": "Suryagatra",
+        "tagline": "The Future of Solar Maintenance",
+        "description": "A UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision.",
+        "type": "hardware",
+        "image_url": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=1000&auto=format&fit=crop",
+        "features": [
+            {"title": "Critical Water Conservation", "description": "Saves millions of liters annually using targeted dry and wet spotless cleaning. Uses 5-30mL per panel vs 15L manually.", "icon_name": "Droplets"},
+            {"title": "AI-Driven Precision", "description": "Proprietary AbhiRaman path optimization and advanced AI ensures optimal cleaning paths and efficiency.", "icon_name": "Cpu"},
+            {"title": "Autonomous Control", "description": "Fully autonomous operations driven by real-time data analytics, requiring minimal manual intervention.", "icon_name": "Zap"},
+            {"title": "Proactive Inspection", "description": "Comprehensive visual and thermal inspections enable predictive maintenance and early fault detection.", "icon_name": "Activity"},
+            {"title": "Proprietary Tech", "description": "Fully proprietary technology stack ensures seamless integration, complete control, and data security.", "icon_name": "ShieldCheck"},
+            {"title": "High ROI", "description": "35% higher ROI than rover bots and 4% energy yield boost. 99% labor reduction.", "icon_name": "TrendingUp"}
+        ]
+    },
+    {
+        "id": "haanth",
+        "name": "Haanth",
+        "tagline": "Learn to Fly. Grow to Lead.",
+        "description": "A narrative-driven drone flight simulator designed to merge drone mechanics education with an engaging emotional narrative and gamification.",
+        "type": "game",
+        "image_url": "https://images.unsplash.com/photo-1662348316911-d6aef85f8560", 
+        "features": [
+            {"title": "Narrative-Driven", "description": "Follow Haanth, a baby drone, on a journey of family reunion and growth.", "icon_name": "BookOpen"},
+            {"title": "Realistic Physics", "description": "Master real-world piloting skills including wind compensation and hexacopter dynamics.", "icon_name": "Wind"},
+            {"title": "Holographic Mentor", "description": "Guided by Kovo, a holographic assistant providing real-time feedback and encouragement.", "icon_name": "Bot"},
+            {"title": "Gamified Learning", "description": "Unlock skins, upgrade components, and evolve from quadcopter to hexacopter.", "icon_name": "Gamepad2"},
+            {"title": "Multi-Language", "description": "Available in English, Hindi, and regional languages for broader accessibility.", "icon_name": "Languages"},
+            {"title": "STEM Education", "description": "Perfect for students 8-15 to learn drone mechanics in a fun, safe environment.", "icon_name": "GraduationCap"}
+        ]
+    }
+]
+
 # Routes
 @api_router.get("/")
 async def root():
@@ -144,6 +193,10 @@ async def get_team():
 @api_router.get("/roadmap", response_model=List[RoadmapItem])
 async def get_roadmap():
     return ROADMAP_DATA
+
+@api_router.get("/products", response_model=List[Product])
+async def get_products():
+    return PRODUCTS_DATA
 
 # Include the router
 app.include_router(api_router)
