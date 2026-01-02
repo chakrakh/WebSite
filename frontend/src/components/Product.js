@@ -5,6 +5,7 @@ import {
   BookOpen, Wind, Bot, Gamepad2, Languages, GraduationCap,
   Rocket
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -51,28 +52,52 @@ const Product = () => {
     <div id="projects" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4"
+          >
             <Rocket className="w-4 h-4 mr-2" /> Coming Soon
-          </div>
-          <h2 className="text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          </motion.div>
+          <motion.h2 
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ delay: 0.1 }}
+             className="text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl"
+          >
             Future Innovations
-          </h2>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+          </motion.h2>
+          <motion.p 
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ delay: 0.2 }}
+             className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto"
+          >
             We are building the next generation of drone technology. Everything you see here is currently in development.
-          </p>
+          </motion.p>
         </div>
 
         <div className="space-y-32">
           {products.map((product, pIndex) => (
-            <div key={pIndex} className="relative border-b border-gray-100 pb-20 last:border-0 last:pb-0">
+            <motion.div 
+              key={pIndex} 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="relative border-b border-gray-100 pb-20 last:border-0 last:pb-0"
+            >
               {/* Product Header */}
               <div className="flex flex-col md:flex-row gap-10 items-center mb-12">
                 <div className={`w-full md:w-1/2 ${pIndex % 2 !== 0 ? 'md:order-2' : ''}`}>
-                  <div className="relative">
+                  <div className="relative group">
                     <img 
                       src={product.image_url} 
                       alt={product.name} 
-                      className="rounded-xl shadow-2xl w-full h-80 object-cover"
+                      className="rounded-xl shadow-2xl w-full h-80 object-cover transform transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
                       In Development
@@ -89,13 +114,17 @@ const Product = () => {
               {/* Features Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 {product.features.map((feature, fIndex) => (
-                  <div key={fIndex} className="flex flex-col bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
+                  <motion.div 
+                    key={fIndex} 
+                    whileHover={{ y: -5 }}
+                    className="flex flex-col bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-all duration-300"
+                  >
                     <div className="flex items-center justify-center h-12 w-12 rounded-md bg-white shadow-sm mb-4">
                       {IconMap[feature.icon_name] || <Zap className="h-6 w-6 text-gray-400" />}
                     </div>
                     <h4 className="text-lg font-medium text-gray-900">{feature.title}</h4>
                     <p className="mt-2 text-base text-gray-500">{feature.description}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -176,7 +205,7 @@ const Product = () => {
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

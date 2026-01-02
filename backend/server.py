@@ -70,7 +70,6 @@ TEAM_DATA = [
         "role": "Visionary",
         "bio": [
             "Currently pursuing a Master's in Drone & Anti-Drone Technologies at IIT Jodhpur.",
-            "Visionary student entrepreneur and passionate researcher.",
             "Mechatronics Engineer and certified Data Engineer.",
             "Skill India 2024 medalist in renewable energy.",
             "Expertise in Quantum Technologies, IoT, and AI/ML."
@@ -128,9 +127,9 @@ PRODUCTS_DATA = [
         "comparison_headers": ["Category", "Typical EdTech Tools", "Adventures of Haanth"],
         "comparison_table": [
             {"category": "Framework", "competitor": "Basic Tutorials", "us": "Story-Driven Purpose"},
-            {"category": "Character", "competitor": "Static NPC", "us": "Evolving Companion"},
+            {"category": "Character", "competitor": "Static NPC", "us": "Growing Companion"},
             {"category": "Progression", "competitor": "Linear Levels", "us": "Narrative Milestones"},
-            {"category": "Langauge", "competitor": "English Only", "us": "Multi-Language Support"},
+            {"category": "Localization", "competitor": "English Only", "us": "Multi-language voice (English + regional)"},
             {"category": "Engagement", "competitor": "Points/Badges", "us": "Identity & Customization"},
             {"category": "Goal", "competitor": "Complete Tasks", "us": "Uncover the Journey"},
             {"category": "Appeal", "competitor": "Functional", "us": "Emotional Connection"}
@@ -139,7 +138,7 @@ PRODUCTS_DATA = [
             {"title": "Narrative-Driven", "description": "Experience a purposeful journey where every flight lesson drives the story forward.", "icon_name": "BookOpen"},
             {"title": "Realistic Physics", "description": "Master real-world piloting skills including wind compensation and flight dynamics.", "icon_name": "Wind"},
             {"title": "Holographic Mentor", "description": "Guided by Kovo, a smart assistant providing real-time feedback.", "icon_name": "Bot"},
-            {"title": "Gamified Learning", "description": "Unlock customizations and upgrades as you progress through the adventure.", "icon_name": "Gamepad2"},
+            {"title": "Gamified Learning", "description": "Master piloting skills on various configurations, helping students learn control across different drone types.", "icon_name": "Gamepad2"},
             {"title": "Multi-Language", "description": "Designed for accessibility with support for multiple regional languages.", "icon_name": "Languages"},
             {"title": "STEM Education", "description": "A safe, engaging environment for students to master drone technology.", "icon_name": "GraduationCap"}
         ]
