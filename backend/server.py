@@ -121,27 +121,27 @@ PRODUCTS_DATA = [
         "id": "haanth",
         "name": "Adventures of Haanth",
         "tagline": "Learn to Fly. Grow to Lead.",
-        "description": "An upcoming narrative-driven drone flight simulator designed to merge drone mechanics education with an engaging emotional narrative.",
+        "description": "A unique narrative-driven flight simulator merging realistic drone physics with an immersive journey. Master piloting skills to unfold a story of evolution.",
         "type": "game",
         "status": "coming_soon",
         "image_url": "https://images.unsplash.com/photo-1662348316911-d6aef85f8560", 
-        "comparison_headers": ["Category", "Typical EdTech Drone Tools", "Haanth"],
+        "comparison_headers": ["Category", "Typical EdTech Tools", "Adventures of Haanth"],
         "comparison_table": [
-            {"category": "Narrative Framework", "competitor": "Tutorial with mechanics", "us": "Story-driven game with purpose"},
-            {"category": "Character Development", "competitor": "Static NPC guide", "us": "Growing companion (quad→hexacopter)"},
-            {"category": "Progression System", "competitor": "Arbitrary unlocks/levels", "us": "Story-meaningful upgrades"},
-            {"category": "Localization", "competitor": "English-centric only", "us": "Multi-language voice (Hindi + regional)"},
-            {"category": "Gamification", "competitor": "Leaderboards only", "us": "Cosmetics + mechanics + identity"},
-            {"category": "Player Motivation", "competitor": "Complete challenge", "us": "Help Haanth reunite with family"},
-            {"category": "Age Appeal", "competitor": "Purely mechanical", "us": "Emotional + mechanical engagement"}
+            {"category": "Framework", "competitor": "Basic Tutorials", "us": "Story-Driven Purpose"},
+            {"category": "Character", "competitor": "Static NPC", "us": "Evolving Companion"},
+            {"category": "Progression", "competitor": "Linear Levels", "us": "Narrative Milestones"},
+            {"category": "Langauge", "competitor": "English Only", "us": "Multi-Language Support"},
+            {"category": "Engagement", "competitor": "Points/Badges", "us": "Identity & Customization"},
+            {"category": "Goal", "competitor": "Complete Tasks", "us": "Uncover the Journey"},
+            {"category": "Appeal", "competitor": "Functional", "us": "Emotional Connection"}
         ],
         "features": [
-            {"title": "Narrative-Driven", "description": "Follow Haanth, a baby drone, on a journey of family reunion and growth.", "icon_name": "BookOpen"},
-            {"title": "Realistic Physics", "description": "Master real-world piloting skills including wind compensation and hexacopter dynamics.", "icon_name": "Wind"},
-            {"title": "Holographic Mentor", "description": "Guided by Kovo, a holographic assistant providing real-time feedback and encouragement.", "icon_name": "Bot"},
-            {"title": "Gamified Learning", "description": "Unlock skins, upgrade components, and evolve from quadcopter to hexacopter.", "icon_name": "Gamepad2"},
-            {"title": "Multi-Language", "description": "Available in English, Hindi, and regional languages for broader accessibility.", "icon_name": "Languages"},
-            {"title": "STEM Education", "description": "Perfect for students 8-15 to learn drone mechanics in a fun, safe environment.", "icon_name": "GraduationCap"}
+            {"title": "Narrative-Driven", "description": "Experience a purposeful journey where every flight lesson drives the story forward.", "icon_name": "BookOpen"},
+            {"title": "Realistic Physics", "description": "Master real-world piloting skills including wind compensation and flight dynamics.", "icon_name": "Wind"},
+            {"title": "Holographic Mentor", "description": "Guided by Kovo, a smart assistant providing real-time feedback.", "icon_name": "Bot"},
+            {"title": "Gamified Learning", "description": "Unlock customizations and upgrades as you progress through the adventure.", "icon_name": "Gamepad2"},
+            {"title": "Multi-Language", "description": "Designed for accessibility with support for multiple regional languages.", "icon_name": "Languages"},
+            {"title": "STEM Education", "description": "A safe, engaging environment for students to master drone technology.", "icon_name": "GraduationCap"}
         ]
     }
 ]
