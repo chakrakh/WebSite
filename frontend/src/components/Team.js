@@ -39,9 +39,9 @@ const Team = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {team.map((member, index) => (
             <div key={index} className="group relative bg-card rounded-xl overflow-hidden border border-border shadow-sm hover:shadow-lg transition-all duration-300">
-              <div className="h-72 overflow-hidden bg-muted">
+              <div className="h-80 overflow-hidden bg-muted flex items-center justify-center p-2">
                 <img 
-                  className="w-full h-full object-cover object-top transform transition-transform duration-500 group-hover:scale-105" 
+                  className="w-full h-full object-contain transform transition-transform duration-500 group-hover:scale-105" 
                   src={member.image_url} 
                   alt={member.name} 
                 />
