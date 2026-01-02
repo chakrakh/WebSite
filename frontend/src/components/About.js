@@ -11,7 +11,7 @@ const About = () => {
           </h2>
           <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
             At Chakrakh, we believe that technology should serve humanity, not just profits. 
-            Our vision is to redefine solar energy for lasting impact.
+            We are redefining what's possible with drones.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ const About = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-900 text-center mb-4">Our Vision</h3>
             <p className="text-gray-600 text-center">
-              To redefine solar energy for lasting impact. Together, we can build the future of truly sustainable solar operations.
+              To redefine the national drone ecosystem for lasting impact. We are building the future of drone technology for people of all ages.
             </p>
           </div>
 
