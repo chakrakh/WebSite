@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { 
   Droplets, Cpu, Zap, Activity, ShieldCheck, TrendingUp, 
-  BookOpen, Wind, Bot, Gamepad2, Languages, GraduationCap 
+  BookOpen, Wind, Bot, Gamepad2, Languages, GraduationCap,
+  Rocket
 } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -43,33 +44,40 @@ const Product = () => {
   }, []);
 
   if (loading) {
-    return <div className="py-20 text-center">Loading Products...</div>;
+    return <div className="py-20 text-center">Loading Future Projects...</div>;
   }
 
   return (
-    <div id="product" className="py-20 bg-white">
+    <div id="projects" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center mb-16">
-          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Our Innovation</h2>
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            Products & Solutions
-          </p>
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
+            <Rocket className="w-4 h-4 mr-2" /> Coming Soon
+          </div>
+          <h2 className="text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            Future Innovations
+          </h2>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Breaking barriers with technology in solar maintenance and education.
+            We are building the next generation of drone technology. Everything you see here is currently in development.
           </p>
         </div>
 
         <div className="space-y-32">
           {products.map((product, pIndex) => (
-            <div key={pIndex} className="relative">
+            <div key={pIndex} className="relative border-b border-gray-100 pb-20 last:border-0 last:pb-0">
               {/* Product Header */}
               <div className="flex flex-col md:flex-row gap-10 items-center mb-12">
                 <div className={`w-full md:w-1/2 ${pIndex % 2 !== 0 ? 'md:order-2' : ''}`}>
-                  <img 
-                    src={product.image_url} 
-                    alt={product.name} 
-                    className="rounded-xl shadow-2xl w-full h-80 object-cover"
-                  />
+                  <div className="relative">
+                    <img 
+                      src={product.image_url} 
+                      alt={product.name} 
+                      className="rounded-xl shadow-2xl w-full h-80 object-cover"
+                    />
+                    <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                      In Development
+                    </div>
+                  </div>
                 </div>
                 <div className="w-full md:w-1/2">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h3>
@@ -91,11 +99,42 @@ const Product = () => {
                 ))}
               </div>
 
-              {/* Suryagatra Specific Table */}
-              {product.id === 'suryagatra' && (
+              {/* Comparison Tables */}
+              {product.comparison_table && (
                 <div className="mt-10 overflow-hidden bg-white shadow sm:rounded-lg border border-gray-200">
                    <div className="px-4 py-5 sm:px-6 bg-gray-50">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Why Choose Suryagatra?</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Why {product.name} Stands Out</h3>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          {product.comparison_headers.map((header, hIndex) => (
+                            <th key={hIndex} className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${hIndex === 2 ? 'text-blue-600 font-bold bg-blue-50' : 'text-gray-500'}`}>
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {product.comparison_table.map((row, rIndex) => (
+                          <tr key={rIndex}>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{row.category}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{row.competitor}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-blue-600 bg-blue-50">{row.us}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* Fallback for hardcoded Suryagatra table if not in DB yet (or keep it if we prefer hardcoding for specific layout) */}
+              {!product.comparison_table && product.id === 'suryagatra' && (
+                <div className="mt-10 overflow-hidden bg-white shadow sm:rounded-lg border border-gray-200">
+                   <div className="px-4 py-5 sm:px-6 bg-gray-50">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Projected Performance vs Traditional Methods</h3>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
@@ -104,7 +143,7 @@ const Product = () => {
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Manual Cleaning</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Robotic Cleaners</th>
-                          <th className="px-6 py-3 text-left text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50">Suryagatra (UAV)</th>
+                          <th className="px-6 py-3 text-left text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50">Suryagatra (Target)</th>
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">

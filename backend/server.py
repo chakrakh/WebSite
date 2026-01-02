@@ -6,7 +6,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
-from typing import List, Optional, Any
+from typing import List, Optional, Any, Dict
 import uuid
 from datetime import datetime, timezone
 
@@ -41,16 +41,15 @@ class TeamMember(BaseModel):
     bio: List[str]
     image_url: Optional[str] = None
 
-class RoadmapItem(BaseModel):
-    phase: str
-    timeline: str
-    title: str
-    items: List[str]
-
 class ProductFeature(BaseModel):
     title: str
     description: str
-    icon_name: str  # We'll send the icon name string and map it on frontend
+    icon_name: str
+
+class ComparisonRow(BaseModel):
+    category: str
+    competitor: str
+    us: str
 
 class Product(BaseModel):
     id: str
@@ -60,17 +59,21 @@ class Product(BaseModel):
     features: List[ProductFeature]
     image_url: Optional[str] = None
     type: str # 'hardware', 'software', 'game'
+    status: str # 'live', 'coming_soon'
+    comparison_table: Optional[List[ComparisonRow]] = None
+    comparison_headers: Optional[List[str]] = None
 
 # Data
 TEAM_DATA = [
     {
         "name": "Hridayesh Behl (Heart)",
-        "role": "Founder & Visionary",
+        "role": "Visionary",
         "bio": [
+            "Currently pursuing a Master's in Drone & Anti-Drone Technologies at IIT Jodhpur.",
             "Visionary student entrepreneur and passionate researcher.",
             "Mechatronics Engineer and certified Data Engineer.",
             "Skill India 2024 medalist in renewable energy.",
-            "Expertise in Nanotechnology, Battery Technologies, IoT, and AI/ML."
+            "Expertise in Quantum Technologies, IoT, and AI/ML."
         ],
         "image_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
     },
@@ -96,73 +99,42 @@ TEAM_DATA = [
     }
 ]
 
-ROADMAP_DATA = [
-    {
-        "phase": "Core Tech",
-        "timeline": "Completed - Q3 2025",
-        "title": "Software Stack Validation",
-        "items": [
-            "AbhiRaman Optimizer: Proprietary path planning algorithm",
-            "Reinforcement Learning (RL) Controller for autonomous flight",
-            "Computer Vision: Advanced object detection & visual servoing"
-        ]
-    },
-    {
-        "phase": "Foundation",
-        "timeline": "Q4 2025 - Q2 2026",
-        "title": "Hardware Integration & Digital Twin",
-        "items": [
-            "Hardware-in-the-Loop (HIL) simulation testing",
-            "Digital Twin environment for risk-free training",
-            "Proprietary low-noise propeller development (<60 dBA)"
-        ]
-    },
-    {
-        "phase": "Regulatory",
-        "timeline": "Q3 2026 - Q4 2026",
-        "title": "Approvals & Pilot Onboarding",
-        "items": [
-            "Regulatory compliance certifications (DGCA/FAA)",
-            "Partnering with key solar farms for beta testing",
-            "Phase 1 pilot setup with 100MW capacity target"
-        ]
-    },
-    {
-        "phase": "Deployment",
-        "timeline": "Q1 2027 - Q2 2027",
-        "title": "Initial Pilot Deployment",
-        "items": [
-            "First autonomous field operations",
-            "Real-world data collection & model fine-tuning",
-            "Performance benchmarking against manual cleaning"
-        ]
-    }
-]
-
 PRODUCTS_DATA = [
     {
         "id": "suryagatra",
         "name": "Suryagatra",
         "tagline": "The Future of Solar Maintenance",
-        "description": "A UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision.",
+        "description": "We are building a UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision. Launching Soon.",
         "type": "hardware",
+        "status": "coming_soon",
         "image_url": "https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=1000&auto=format&fit=crop",
         "features": [
-            {"title": "Critical Water Conservation", "description": "Saves millions of liters annually using targeted dry and wet spotless cleaning. Uses 5-30mL per panel vs 15L manually.", "icon_name": "Droplets"},
-            {"title": "AI-Driven Precision", "description": "Proprietary AbhiRaman path optimization and advanced AI ensures optimal cleaning paths and efficiency.", "icon_name": "Cpu"},
+            {"title": "Critical Water Conservation", "description": "Will save millions of liters annually using targeted dry and wet spotless cleaning. Targeting 5-30mL per panel.", "icon_name": "Droplets"},
+            {"title": "AI-Driven Precision", "description": "Developing proprietary AbhiRaman path optimization and advanced AI for optimal cleaning paths.", "icon_name": "Cpu"},
             {"title": "Autonomous Control", "description": "Fully autonomous operations driven by real-time data analytics, requiring minimal manual intervention.", "icon_name": "Zap"},
-            {"title": "Proactive Inspection", "description": "Comprehensive visual and thermal inspections enable predictive maintenance and early fault detection.", "icon_name": "Activity"},
-            {"title": "Proprietary Tech", "description": "Fully proprietary technology stack ensures seamless integration, complete control, and data security.", "icon_name": "ShieldCheck"},
-            {"title": "High ROI", "description": "35% higher ROI than rover bots and 4% energy yield boost. 99% labor reduction.", "icon_name": "TrendingUp"}
+            {"title": "Proactive Inspection", "description": "Comprehensive visual and thermal inspections will enable predictive maintenance and early fault detection.", "icon_name": "Activity"},
+            {"title": "Proprietary Tech", "description": "Fully proprietary technology stack ensuring seamless integration, complete control, and data security.", "icon_name": "ShieldCheck"},
+            {"title": "High ROI", "description": "Targeting 35% higher ROI than rover bots and 4% energy yield boost.", "icon_name": "TrendingUp"}
         ]
     },
     {
         "id": "haanth",
         "name": "Adventures of Haanth",
         "tagline": "Learn to Fly. Grow to Lead.",
-        "description": "A narrative-driven drone flight simulator designed to merge drone mechanics education with an engaging emotional narrative and gamification.",
+        "description": "An upcoming narrative-driven drone flight simulator designed to merge drone mechanics education with an engaging emotional narrative.",
         "type": "game",
+        "status": "coming_soon",
         "image_url": "https://images.unsplash.com/photo-1662348316911-d6aef85f8560", 
+        "comparison_headers": ["Category", "Typical EdTech Drone Tools", "Haanth"],
+        "comparison_table": [
+            {"category": "Narrative Framework", "competitor": "Tutorial with mechanics", "us": "Story-driven game with purpose"},
+            {"category": "Character Development", "competitor": "Static NPC guide", "us": "Growing companion (quad→hexacopter)"},
+            {"category": "Progression System", "competitor": "Arbitrary unlocks/levels", "us": "Story-meaningful upgrades"},
+            {"category": "Localization", "competitor": "English-centric only", "us": "Multi-language voice (Hindi + regional)"},
+            {"category": "Gamification", "competitor": "Leaderboards only", "us": "Cosmetics + mechanics + identity"},
+            {"category": "Player Motivation", "competitor": "Complete challenge", "us": "Help Haanth reunite with family"},
+            {"category": "Age Appeal", "competitor": "Purely mechanical", "us": "Emotional + mechanical engagement"}
+        ],
         "features": [
             {"title": "Narrative-Driven", "description": "Follow Haanth, a baby drone, on a journey of family reunion and growth.", "icon_name": "BookOpen"},
             {"title": "Realistic Physics", "description": "Master real-world piloting skills including wind compensation and hexacopter dynamics.", "icon_name": "Wind"},
@@ -189,10 +161,6 @@ async def submit_contact(submission: ContactSubmission):
 @api_router.get("/team", response_model=List[TeamMember])
 async def get_team():
     return TEAM_DATA
-
-@api_router.get("/roadmap", response_model=List[RoadmapItem])
-async def get_roadmap():
-    return ROADMAP_DATA
 
 @api_router.get("/products", response_model=List[Product])
 async def get_products():
