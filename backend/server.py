@@ -1,15 +1,14 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
-
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -25,50 +24,131 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
-
 # Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
+class ContactSubmission(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
+    name: str
+    email: EmailStr
+    subject: Optional[str] = None
+    message: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+class TeamMember(BaseModel):
+    name: str
+    role: str
+    bio: List[str]
+    image_url: Optional[str] = None
 
-# Add your routes to the router instead of directly to app
+class RoadmapItem(BaseModel):
+    phase: str
+    timeline: str
+    title: str
+    items: List[str]
+
+# Data (Hardcoded for this MVP version, but served via API)
+TEAM_DATA = [
+    {
+        "name": "Hridayesh Behl (Heart)",
+        "role": "Founder & Visionary",
+        "bio": [
+            "Visionary student entrepreneur and passionate researcher.",
+            "Mechatronics Engineer and certified Data Engineer.",
+            "Skill India 2024 medalist in renewable energy.",
+            "Expertise in Nanotechnology, Battery Technologies, IoT, and AI/ML."
+        ],
+        "image_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop" # Placeholder
+    },
+    {
+        "name": "Prof N Satyanarayana (Wisdom)",
+        "role": "Mentor & Scientific Advisor",
+        "bio": [
+            "Emirates Professor and ex HOD Physics Pondicherry University.",
+            "Over 45 years of expertise in Materials Science and renewable energy.",
+            "Published 150+ papers and completed 22 research projects."
+        ],
+        "image_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop" # Placeholder
+    },
+    {
+        "name": "Mr Rao Ambati (Impact)",
+        "role": "Strategic Advisor & Investor",
+        "bio": [
+            "20 years of experience in managing and delivering end-to-end projects.",
+            "Specialist in Change and Release Management across global markets.",
+            "Expertise in Retail, Telecom, Banking, and Energy sectors."
+        ],
+        "image_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop" # Placeholder
+    }
+]
+
+ROADMAP_DATA = [
+    {
+        "phase": "Foundation",
+        "timeline": "Q4 2025 - Q2 2026",
+        "title": "Hardware Integration & Testing",
+        "items": [
+            "AbhiRaman Optimizer validation",
+            "Hardware-in-the-Loop (HIL) testing",
+            "Proprietary propeller efficiency tests"
+        ]
+    },
+    {
+        "phase": "Regulatory",
+        "timeline": "Q3 2026 - Q4 2026",
+        "title": "Approvals & Pilot Onboarding",
+        "items": [
+            "Regulatory compliance certifications",
+            "Partnering with key solar farms",
+            "Phase 1 pilot setup"
+        ]
+    },
+    {
+        "phase": "Deployment",
+        "timeline": "Q1 2027 - Q2 2027",
+        "title": "Initial Pilot Deployment",
+        "items": [
+            "First field operations",
+            "Real-world data collection",
+            "Performance benchmarking"
+        ]
+    },
+    {
+        "phase": "Expansion",
+        "timeline": "Q1 2028+",
+        "title": "Global Expansion",
+        "items": [
+            "Commercial partnerships",
+            "Global market entry",
+            "Fleet scaling"
+        ]
+    }
+]
+
+# Routes
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Chakrakh Technologies API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
+@api_router.post("/contact", response_model=ContactSubmission)
+async def submit_contact(submission: ContactSubmission):
+    doc = submission.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
+    await db.contacts.insert_one(doc)
+    return submission
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.get("/team", response_model=List[TeamMember])
+async def get_team():
+    return TEAM_DATA
 
-# Include the router in the main app
+@api_router.get("/roadmap", response_model=List[RoadmapItem])
+async def get_roadmap():
+    return ROADMAP_DATA
+
+# Include the router
 app.include_router(api_router)
 
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
@@ -77,7 +157,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure logging
+# Logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
