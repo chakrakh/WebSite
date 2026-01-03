@@ -17,17 +17,6 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="mb-8 inline-flex items-center gap-3"
-        >
-          <span className="py-1.5 px-4 rounded-full bg-primary/10 text-primary text-sm font-semibold tracking-wider uppercase border border-primary/20 backdrop-blur-sm">
-            Next Gen Aerospace
-          </span>
-        </motion.div>
-
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
