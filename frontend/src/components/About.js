@@ -8,19 +8,19 @@ const About = () => {
       icon: <Target size={32} />,
       title: "Our Mission",
       subtitle: "Purpose-Driven Innovation",
-      description: "\"Technology Serving Humanity, Not Just Profits.\" We engineer transformative solutions addressing critical global challenges—from water scarcity to sustainable energy—creating measurable impact for communities worldwide.",
+      description: "Technology Serving Humanity, Not Just Profits. We engineer transformative solutions addressing critical global challenges from water scarcity to sustainable energy, creating measurable impact for communities worldwide.",
     },
     {
       icon: <Lightbulb size={32} />,
       title: "Our Vision",
       subtitle: "Pioneering Tomorrow",
-      description: "To revolutionize India's aerospace ecosystem and establish a lasting legacy of innovation. We're architecting the future of autonomous flight technology, making it accessible and beneficial for generations to come.",
+      description: "To revolutionize India's aerospace ecosystem and establish a lasting legacy of innovation. We are architecting the future of autonomous flight technology, making it accessible and beneficial for generations to come.",
     },
     {
       icon: <Heart size={32} />,
       title: "Our Values",
       subtitle: "Uncompromising Principles",
-      description: "Profit will never supersede our principles. We stand firmly on the pillars of Integrity, Sustainability, and Human-Centric Innovation—guiding every decision, every design, and every deployment.",
+      description: "Profit will never supersede our principles. We stand firmly on the pillars of Integrity, Sustainability, and Human-Centric Innovation, guiding every decision, every design, and every deployment.",
     }
   ];
 
