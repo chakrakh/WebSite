@@ -1,7 +1,6 @@
 import React from 'react';
-import { Target, Lightbulb, Heart, Rocket, Shield, Users } from 'lucide-react';
+import { Target, Lightbulb, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
-import FloatingDrone from './FloatingDrone';
 
 const About = () => {
   const cards = [
@@ -26,25 +25,7 @@ const About = () => {
   ];
 
   return (
-    <div id="about" className="py-24 bg-secondary/30 relative overflow-hidden">
-      {/* Animated Background Drones */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-20 left-10 opacity-10"
-          animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        >
-          <FloatingDrone size="lg" />
-        </motion.div>
-        <motion.div
-          className="absolute bottom-20 right-10 opacity-10"
-          animate={{ x: [0, -80, 0], y: [0, -30, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        >
-          <FloatingDrone size="md" />
-        </motion.div>
-      </div>
-
+    <div id="about" className="py-24 bg-secondary/30 dark:bg-background relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <motion.div
@@ -53,7 +34,6 @@ const About = () => {
             viewport={{ once: true }}
             className="inline-flex items-center justify-center mb-4"
           >
-            <FloatingDrone size="sm" className="mr-3" />
             <span className="text-primary font-semibold uppercase tracking-wider text-sm">Who We Are</span>
           </motion.div>
           
@@ -85,14 +65,14 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group bg-card p-8 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all duration-500 relative overflow-hidden"
+              className="group bg-card dark:bg-slate-900/50 p-8 rounded-2xl border border-border dark:border-slate-700/50 shadow-sm hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-500 relative overflow-hidden"
             >
               {/* Hover gradient effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="relative z-10">
                 <motion.div 
-                  className="flex items-center justify-center h-16 w-16 rounded-xl bg-primary/10 text-primary mb-6 mx-auto group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
+                  className="flex items-center justify-center h-16 w-16 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary mb-6 mx-auto group-hover:bg-primary group-hover:text-white transition-all duration-300"
                   whileHover={{ rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.5 }}
                 >
@@ -101,7 +81,7 @@ const About = () => {
                 
                 <h3 className="text-2xl font-bold text-foreground text-center mb-1">{card.title}</h3>
                 <p className="text-primary text-sm font-medium text-center mb-4 uppercase tracking-wider">{card.subtitle}</p>
-                <p className="text-muted-foreground text-center leading-relaxed">
+                <p className="text-muted-foreground dark:text-slate-400 text-center leading-relaxed">
                   {card.description}
                 </p>
               </div>
