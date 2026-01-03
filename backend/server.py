@@ -88,7 +88,7 @@ TEAM_DATA = [
     },
     {
         "name": "Mr Rao Ambati (Impact)",
-        "role": "Strategic Advisor & Investor",
+        "role": "Strategic Advisor & Financial Partner",
         "bio": [
             "20 years of experience in managing and delivering end-to-end projects.",
             "Specialist in Change and Release Management across global markets.",
