@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
-import FloatingDrone from './FloatingDrone';
 
 const Hero = () => {
   return (
@@ -17,42 +16,6 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/40 to-background/90"></div>
       </div>
 
-      {/* Animated Floating Drones in Background */}
-      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 left-[5%] opacity-20"
-          animate={{ 
-            x: [0, 30, 0], 
-            y: [0, -20, 0],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <FloatingDrone size="lg" />
-        </motion.div>
-        
-        <motion.div
-          className="absolute top-1/3 right-[8%] opacity-15"
-          animate={{ 
-            x: [0, -25, 0], 
-            y: [0, 15, 0],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        >
-          <FloatingDrone size="md" />
-        </motion.div>
-        
-        <motion.div
-          className="absolute bottom-1/4 left-[15%] opacity-10"
-          animate={{ 
-            x: [0, 40, 0], 
-            y: [0, -10, 0],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        >
-          <FloatingDrone size="sm" />
-        </motion.div>
-      </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -60,7 +23,6 @@ const Hero = () => {
           transition={{ duration: 1 }}
           className="mb-8 inline-flex items-center gap-3"
         >
-          <FloatingDrone size="sm" />
           <span className="py-1.5 px-4 rounded-full bg-primary/10 text-primary text-sm font-semibold tracking-wider uppercase border border-primary/20 backdrop-blur-sm">
             Next Gen Aerospace
           </span>
