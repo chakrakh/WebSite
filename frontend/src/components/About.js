@@ -1,23 +1,27 @@
 import React from 'react';
-import { Target, Lightbulb, Heart } from 'lucide-react';
+import { Target, Lightbulb, Heart, Rocket, Shield, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
+import FloatingDrone from './FloatingDrone';
 
 const About = () => {
   const cards = [
     {
       icon: <Target size={32} />,
       title: "Our Mission",
-      description: "\"Technology serving humanity, not just profits.\" We build systems that solve real-world problems like water scarcity while boosting energy efficiency.",
+      subtitle: "Purpose-Driven Innovation",
+      description: "\"Technology Serving Humanity, Not Just Profits.\" We engineer transformative solutions addressing critical global challenges—from water scarcity to sustainable energy—creating measurable impact for communities worldwide.",
     },
     {
       icon: <Lightbulb size={32} />,
       title: "Our Vision",
-      description: "To redefine the national drone ecosystem for lasting impact. We are building the future of drone technology for people of all ages.",
+      subtitle: "Pioneering Tomorrow",
+      description: "To revolutionize India's aerospace ecosystem and establish a lasting legacy of innovation. We're architecting the future of autonomous flight technology, making it accessible and beneficial for generations to come.",
     },
     {
       icon: <Heart size={32} />,
       title: "Our Values",
-      description: "We will never compromise our core values for profits. Integrity, sustainability, and humanity-centric innovation drive everything we do.",
+      subtitle: "Uncompromising Principles",
+      description: "Profit will never supersede our principles. We stand firmly on the pillars of Integrity, Sustainability, and Human-Centric Innovation—guiding every decision, every design, and every deployment.",
     }
   ];
 
