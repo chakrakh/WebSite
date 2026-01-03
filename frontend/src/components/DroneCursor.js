@@ -1,25 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const DroneCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isScrolling, setIsScrolling] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    let scrollTimeout;
-    
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
-    };
-
-    const handleScroll = () => {
-      setIsScrolling(true);
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
-      }, 150);
     };
 
     const handleMouseLeave = () => {
@@ -27,14 +16,15 @@ const DroneCursor = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
     document.addEventListener('mouseleave', handleMouseLeave);
+
+    // Hide default cursor
+    document.body.style.cursor = 'none';
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mouseleave', handleMouseLeave);
-      clearTimeout(scrollTimeout);
+      document.body.style.cursor = 'auto';
     };
   }, []);
 
@@ -44,6 +34,11 @@ const DroneCursor = () => {
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth < 768) {
+        document.body.style.cursor = 'auto';
+      } else {
+        document.body.style.cursor = 'none';
+      }
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -53,69 +48,62 @@ const DroneCursor = () => {
   if (isMobile) return null;
 
   return (
-    <AnimatePresence>
-      {isVisible && isScrolling && (
+    <>
+      {/* Add global style to hide cursor on all elements */}
+      <style>{`
+        * { cursor: none !important; }
+        @media (max-width: 767px) {
+          * { cursor: auto !important; }
+        }
+      `}</style>
+      
+      {isVisible && (
         <motion.div
           className="fixed pointer-events-none z-[9999]"
-          initial={{ opacity: 0, scale: 0.5 }}
           animate={{ 
-            opacity: 1, 
-            scale: 1,
-            x: mousePosition.x - 20,
-            y: mousePosition.y - 20,
+            x: mousePosition.x - 16,
+            y: mousePosition.y - 8,
           }}
-          exit={{ opacity: 0, scale: 0.5 }}
           transition={{ 
             type: "spring", 
-            stiffness: 500, 
-            damping: 28,
-            opacity: { duration: 0.2 }
+            stiffness: 800, 
+            damping: 35,
+            mass: 0.5
           }}
         >
-          {/* Drone SVG */}
+          {/* Fixed Wing Drone SVG */}
           <svg 
-            width="40" 
-            height="40" 
-            viewBox="0 0 64 64" 
-            className="drop-shadow-lg"
+            width="32" 
+            height="16" 
+            viewBox="0 0 64 32" 
+            className="drop-shadow-md"
           >
-            {/* Drone Body */}
-            <ellipse cx="32" cy="32" rx="8" ry="4" fill="hsl(var(--primary))" />
+            {/* Fuselage */}
+            <ellipse cx="32" cy="16" rx="20" ry="5" fill="hsl(var(--primary))" />
             
-            {/* Arms */}
-            <line x1="24" y1="32" x2="12" y2="20" stroke="hsl(var(--foreground))" strokeWidth="2" />
-            <line x1="40" y1="32" x2="52" y2="20" stroke="hsl(var(--foreground))" strokeWidth="2" />
-            <line x1="24" y1="32" x2="12" y2="44" stroke="hsl(var(--foreground))" strokeWidth="2" />
-            <line x1="40" y1="32" x2="52" y2="44" stroke="hsl(var(--foreground))" strokeWidth="2" />
+            {/* Nose cone */}
+            <path d="M 52 16 Q 64 16 52 12 L 52 20 Q 64 16 52 16" fill="hsl(var(--primary))" />
             
-            {/* Propellers with animation */}
-            <g className="animate-spin" style={{ transformOrigin: '12px 20px', animationDuration: '0.1s' }}>
-              <ellipse cx="12" cy="20" rx="8" ry="2" fill="hsl(var(--muted-foreground))" opacity="0.7" />
-            </g>
-            <g className="animate-spin" style={{ transformOrigin: '52px 20px', animationDuration: '0.1s' }}>
-              <ellipse cx="52" cy="20" rx="8" ry="2" fill="hsl(var(--muted-foreground))" opacity="0.7" />
-            </g>
-            <g className="animate-spin" style={{ transformOrigin: '12px 44px', animationDuration: '0.1s' }}>
-              <ellipse cx="12" cy="44" rx="8" ry="2" fill="hsl(var(--muted-foreground))" opacity="0.7" />
-            </g>
-            <g className="animate-spin" style={{ transformOrigin: '52px 44px', animationDuration: '0.1s' }}>
-              <ellipse cx="52" cy="44" rx="8" ry="2" fill="hsl(var(--muted-foreground))" opacity="0.7" />
-            </g>
+            {/* Cockpit */}
+            <ellipse cx="38" cy="14" rx="6" ry="3" fill="hsl(var(--primary))" opacity="0.8" />
+            <ellipse cx="38" cy="14" rx="4" ry="2" fill="hsl(var(--background))" opacity="0.6" />
             
-            {/* Camera/Sensor */}
-            <circle cx="32" cy="36" r="3" fill="hsl(var(--foreground))" />
-            <circle cx="32" cy="36" r="1.5" fill="hsl(var(--primary))" />
+            {/* Main Wings */}
+            <path d="M 24 16 L 8 8 L 8 10 L 22 16 L 8 22 L 8 24 L 24 16" fill="hsl(var(--foreground))" opacity="0.9" />
+            <path d="M 40 16 L 56 8 L 56 10 L 42 16 L 56 22 L 56 24 L 40 16" fill="hsl(var(--foreground))" opacity="0.9" />
+            
+            {/* Tail */}
+            <path d="M 12 16 L 4 12 L 4 14 L 10 16 L 4 18 L 4 20 L 12 16" fill="hsl(var(--foreground))" opacity="0.7" />
+            
+            {/* Vertical Stabilizer */}
+            <path d="M 14 16 L 14 8 L 18 8 L 18 16" fill="hsl(var(--foreground))" opacity="0.8" />
+            
+            {/* Engine glow */}
+            <circle cx="12" cy="16" r="2" fill="hsl(var(--primary))" opacity="0.6" />
           </svg>
-          
-          {/* Trail effect */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-primary/20 blur-md"
-            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0.2, 0.5] }}
-            transition={{ duration: 0.5, repeat: Infinity }}
-          />
         </motion.div>
       )}
-    </AnimatePresence>
+    </>
   );
 };
 
