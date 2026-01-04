@@ -101,10 +101,15 @@ const Product = () => {
                       className="w-full h-auto object-cover transform transition-transform duration-700 hover:scale-105"
                     />
                     <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
-                      <div className="bg-background/90 backdrop-blur text-foreground text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wider shadow-sm">
-                        {product.status === 'coming_soon' ? 'In Development' : 'Live'}
-                      </div>
-                      {product.status === 'coming_soon' && (
+                      {/* Status Badge - Hide 'In Development' for Haanth */}
+                      {!(product.id === 'haanth' && product.status === 'coming_soon') && (
+                        <div className="bg-background/90 backdrop-blur text-foreground text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wider shadow-sm">
+                          {product.status === 'coming_soon' ? 'In Development' : 'Live'}
+                        </div>
+                      )}
+                      
+                      {/* Launching Soon Badge - Hide for Suryagatra */}
+                      {product.status === 'coming_soon' && product.id !== 'suryagatra' && (
                          <div className="bg-primary/90 backdrop-blur text-primary-foreground text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wider shadow-sm animate-pulse">
                            Launching Soon
                          </div>

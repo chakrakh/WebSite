@@ -132,9 +132,9 @@ const DroneCursor = () => {
           }}
           transition={{ 
             type: "spring", 
-            stiffness: 150, // Reduced stiffness for less sensitivity (lag effect)
-            damping: 15,
-            mass: 0.1
+            stiffness: 60,
+            damping: 25,
+            mass: 0.6
           }}
         >
           {/* Outer ring */}

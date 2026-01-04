@@ -39,94 +39,56 @@ const ScrollDrone = () => {
   const centerX = windowSize.width / 2;
   const rightX = windowSize.width - 60; // 60px padding from right
 
-  // Y Position: 90vh (Bottom) -> 15vh (Top)
-  const bottomY = windowSize.height * 0.9;
+  // Y Position: Start higher (between buttons) -> Side Top -> Side Bottom
+  // Hero section is h-screen. Buttons are roughly at 60-70% height?
+  // Let's approximate the "between buttons" position as 85% of viewport height to be safely below.
+  const startY = windowSize.height * 0.85;
   const topY = windowSize.height * 0.15;
-  const endY = windowSize.height * 0.9; // Bottom of screen for end of scroll
+  const endY = windowSize.height * 0.9;
 
   const xRange = useTransform(
     scrollY,
-    [0, windowSize.height / 2], // Trigger earlier
-    [centerX - 30, rightX] // -30 to center the 60px width drone
+    [0, windowSize.height / 2], 
+    [centerX - 30, rightX]
   );
 
   const yRange = useTransform(
     scrollY,
     [0, windowSize.height / 2, docHeight],
-    [bottomY, topY, endY] // Start at Hero Bottom -> Go to Side Top -> Scroll down to Side Bottom
+    [startY, topY, endY] 
   );
 
   const scaleRange = useTransform(
     scrollY,
     [0, windowSize.height / 2],
-    [1.5, 0.8] // Big in Hero, smaller in side scroll
+    [1.5, 0.8] 
   );
   
-  const rotateRange = useTransform(
-      scrollY,
-      [0, windowSize.height / 2],
-      [0, 90] // Rotate to face down? No, user didn't ask. 
-      // User said "move to right side... moving while going down". 
-      // Default orientation is fine.
-  );
-
   // Smooth out the movement
-  const x = useSpring(xRange, { stiffness: 100, damping: 20 });
-  const y = useSpring(yRange, { stiffness: 100, damping: 20 });
-  const scale = useSpring(scaleRange, { stiffness: 100, damping: 20 });
-
-  // Bounce animation for Hero Mode only
-  // We can't easily mix useSpring with keyframes in the same style prop for layout.
-  // Instead we'll use a child element for the bounce that fades out.
-  const bounceOpacity = useTransform(scrollY, [0, 100], [1, 0]);
-  
-  // Path Opacity (Visible only after leaving hero)
-  const pathOpacity = useTransform(scrollY, [windowSize.height * 0.4, windowSize.height * 0.8], [0, 0.5]);
-  const pathLength = useTransform(scrollY, [windowSize.height, docHeight], [0, 1]);
+  const x = useSpring(xRange, { stiffness: 80, damping: 25 });
+  const y = useSpring(yRange, { stiffness: 80, damping: 25 });
+  const scale = useSpring(scaleRange, { stiffness: 80, damping: 25 });
 
   if (windowSize.width < 768) return null; // Hide on mobile for now
 
   return (
     <>
-      {/* Side Path */}
-      <motion.div 
-        className="fixed right-[60px] top-[15vh] w-0.5 bg-border z-40"
-        style={{ 
-            height: '75vh', 
-            opacity: pathOpacity 
-        }}
-      >
-          {/* Progress fill */}
-          <motion.div 
-            className="absolute top-0 left-0 w-full bg-primary"
-            style={{ 
-                height: '100%', 
-                originY: 0,
-                scaleY: pathLength
-            }} 
-          />
-      </motion.div>
-
       {/* Drone Container */}
       <motion.div
         className="fixed top-0 left-0 z-50 pointer-events-none"
         style={{ x, y, scale }}
       >
         <div className="relative -translate-x-1/2 -translate-y-1/2">
-             {/* Bouncing Text in Hero */}
-            <motion.div 
-                className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-bold text-primary"
-                style={{ opacity: bounceOpacity }}
-                animate={{ y: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-            >
-                SCROLL DOWN
-            </motion.div>
-
             {/* Drone SVG */}
             <motion.div
-                animate={scrollY.get() < 100 ? { y: [0, -15, 0] } : { y: 0 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ 
+                    y: [0, -12, 0],
+                    x: [-8, 8, -8]
+                }}
+                transition={{ 
+                    y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                    x: { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
+                }}
             >
                 <svg width="60" height="60" viewBox="0 0 64 64" className="drop-shadow-lg filter drop-shadow-primary/50">
                     {/* Drone Body */}
