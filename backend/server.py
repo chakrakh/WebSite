@@ -4,6 +4,8 @@ from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
+import asyncio
+import resend
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional, Any, Dict
@@ -12,6 +14,11 @@ from datetime import datetime, timezone
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
+
+# Resend Configuration
+resend.api_key = os.environ.get('RESEND_API_KEY')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
+RECIPIENT_EMAIL = "chakrakhtechnologies25@proton.me"
 
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
@@ -94,7 +101,7 @@ TEAM_DATA = [
             "Specialist in Change and Release Management across global markets.",
             "Expertise in Retail, Telecom, Banking, and Energy sectors."
         ],
-        "image_url": "https://customer-assets.emergentagent.com/job_tech-innovators-45/artifacts/12cssvm9_image.png"
+        "image_url": "https://customer-assets.emergentagent.com/job_ccfcefa8-b408-48e0-87e8-531c8888e5ff/artifacts/qflkypr2_image.png"
     }
 ]
 
@@ -103,7 +110,7 @@ PRODUCTS_DATA = [
         "id": "suryagatra",
         "name": "Suryagatra",
         "tagline": "The Future of Solar Maintenance",
-        "description": "We are building a UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision. Launching Soon.",
+        "description": "We are building a UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision. Launching Soon. Solar panel cleaning autonomous drone.",
         "type": "hardware",
         "status": "coming_soon",
         "image_url": "https://images.unsplash.com/photo-1701120287063-30bcbec1d65d",
@@ -154,7 +161,31 @@ async def root():
 async def submit_contact(submission: ContactSubmission):
     doc = submission.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
+    
+    # Insert into DB
     await db.contacts.insert_one(doc)
+    
+    # Send Email via Resend
+    email_params = {
+        "from": SENDER_EMAIL,
+        "to": [RECIPIENT_EMAIL],
+        "subject": f"New Contact: {submission.subject or 'No Subject'}",
+        "html": f"""
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> {submission.name}</p>
+        <p><strong>Email:</strong> {submission.email}</p>
+        <p><strong>Subject:</strong> {submission.subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>{submission.message}</p>
+        """
+    }
+    
+    try:
+        await asyncio.to_thread(resend.Emails.send, email_params)
+    except Exception as e:
+        logger.error(f"Failed to send email: {str(e)}")
+        # We don't fail the request if email fails, but we log it
+    
     return submission
 
 @api_router.get("/team", response_model=List[TeamMember])

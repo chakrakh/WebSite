@@ -8,7 +8,7 @@ const About = () => {
       icon: <Target size={32} />,
       title: "Our Mission",
       subtitle: "Purpose-Driven Innovation",
-      description: "Technology Serving Humanity, Not Just Profits. We engineer transformative solutions addressing critical global challenges from water scarcity to sustainable energy, creating measurable impact for communities worldwide.",
+      description: "Technology Serving Humanity, Not Just Profits. We engineer transformative solutions addressing critical global challenges from water scarcity to sustainable energy, creating measurable impact for communities worldwide. We are teaching students so we must add in these lines we create tools for students to teach about drones and help in future ready skilled workforce for sustainable development of the nation.",
     },
     {
       icon: <Lightbulb size={32} />,

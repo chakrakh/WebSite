@@ -100,8 +100,15 @@ const Product = () => {
                       alt={product.name} 
                       className="w-full h-auto object-cover transform transition-transform duration-700 hover:scale-105"
                     />
-                    <div className="absolute top-4 right-4 bg-background/90 backdrop-blur text-foreground text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wider shadow-sm">
-                      {product.status === 'coming_soon' ? 'In Development' : 'Live'}
+                    <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
+                      <div className="bg-background/90 backdrop-blur text-foreground text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wider shadow-sm">
+                        {product.status === 'coming_soon' ? 'In Development' : 'Live'}
+                      </div>
+                      {product.status === 'coming_soon' && (
+                         <div className="bg-primary/90 backdrop-blur text-primary-foreground text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wider shadow-sm animate-pulse">
+                           Launching Soon
+                         </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -133,7 +140,7 @@ const Product = () => {
               {(product.comparison_table || (product.id === 'suryagatra')) && (
                 <div className="mt-12 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
                    <div className="px-6 py-4 bg-muted/50 border-b border-border">
-                    <h3 className="text-base font-semibold text-foreground">
+                    <h3 className={`text-base font-semibold ${product.id === 'haanth' ? 'text-green-800 dark:text-green-400' : 'text-foreground'}`}>
                         {product.id === 'suryagatra' && !product.comparison_table ? "Performance Targets" : `Why ${product.name} Stands Out`}
                     </h3>
                   </div>

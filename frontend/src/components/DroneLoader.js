@@ -10,7 +10,7 @@ const DroneLoader = ({ isLoading, onComplete }) => {
         setProgress(prev => {
           if (prev >= 100) {
             clearInterval(interval);
-            setTimeout(() => onComplete?.(), 300);
+            setTimeout(() => onComplete?.(), 800); // Increased delay for exit animation
             return 100;
           }
           return prev + 2;
@@ -107,6 +107,12 @@ const DroneLoader = ({ isLoading, onComplete }) => {
             {/* Animated Drone */}
             <motion.div
               className="absolute"
+              initial={{ scale: 1 }}
+              animate={progress === 100 ? { 
+                scale: [1, 5, 20],
+                opacity: [1, 1, 0]
+              } : {}}
+              transition={{ duration: 0.8, ease: "anticipate" }}
               style={{
                 left: `${currentX}%`,
                 top: `${currentY}%`,
