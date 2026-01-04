@@ -79,7 +79,7 @@ TEAM_DATA = [
             "Currently pursuing a Master's in Drone & Anti-Drone Technologies at IIT Jodhpur.",
             "Mechatronics Engineer and certified Data Engineer.",
             "Skill India 2024 medalist in renewable energy.",
-            "Expertise in Quantum Technologies, IoT, and AI/ML."
+            "Expertise in Quantum Technologies, IoT, AI/ML and Drone Technology."
         ],
         "image_url": "https://customer-assets.emergentagent.com/job_tech-innovators-45/artifacts/zp9i5512_image.png"
     },
