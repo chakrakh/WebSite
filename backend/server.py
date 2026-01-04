@@ -94,7 +94,7 @@ TEAM_DATA = [
         "image_url": "https://customer-assets.emergentagent.com/job_tech-innovators-45/artifacts/4b76ymo4_image.png"
     },
     {
-        "name": "Mr Rao Ambati (Impact)",
+        "name": "Mr Pulla Rao Chowdary Ambati (Impact)",
         "role": "Strategic Advisor & Financial Partner",
         "bio": [
             "20 years of experience in managing and delivering end-to-end projects.",

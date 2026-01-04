@@ -145,7 +145,7 @@ const Product = () => {
               {(product.comparison_table || (product.id === 'suryagatra')) && (
                 <div className="mt-12 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
                    <div className="px-6 py-4 bg-muted/50 border-b border-border">
-                    <h3 className={`text-base font-semibold ${product.id === 'haanth' ? 'text-green-800 dark:text-green-400' : 'text-foreground'}`}>
+                    <h3 className={`text-base font-semibold ${product.id === 'haanth' ? 'text-foreground' : 'text-foreground'}`}>
                         {product.id === 'suryagatra' && !product.comparison_table ? "Performance Targets" : `Why ${product.name} Stands Out`}
                     </h3>
                   </div>
@@ -174,8 +174,8 @@ const Product = () => {
                             product.comparison_table.map((row, rIndex) => (
                             <tr key={rIndex} className="hover:bg-muted/30 transition-colors">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">{row.category}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">{row.competitor}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-primary">{row.us}</td>
+                                <td className={`px-6 py-4 whitespace-nowrap text-sm ${product.id === 'haanth' ? 'text-green-600 dark:text-green-400' : 'text-muted-foreground'}`}>{row.competitor}</td>
+                                <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${product.id === 'haanth' ? 'text-green-700 dark:text-green-300' : 'text-primary'}`}>{row.us}</td>
                             </tr>
                             ))
                         ) : (

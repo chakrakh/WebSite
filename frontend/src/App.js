@@ -23,8 +23,8 @@ function App() {
     <ThemeProvider>
       <DroneLoader isLoading={isLoading} onComplete={() => setIsLoading(false)} />
       <DroneCursor />
-      <ScrollDrone />
       <Router>
+        <ScrollDrone />
         <PageTransition>
           <Routes>
             <Route path="/" element={<Home />} />
