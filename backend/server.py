@@ -110,7 +110,7 @@ PRODUCTS_DATA = [
         "id": "suryagatra",
         "name": "Suryagatra",
         "tagline": "The Future of Solar Maintenance",
-        "description": "We are building a UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision. Launching Soon. Solar panel cleaning autonomous drone.",
+        "description": "We are building a UAV-powered solution designed for maximized efficiency, sustainable operations, and unmatched precision. Our autonomous solar panel cleaning drones ensure optimal energy yield with minimal water usage.",
         "type": "hardware",
         "status": "coming_soon",
         "image_url": "https://images.unsplash.com/photo-1701120287063-30bcbec1d65d",

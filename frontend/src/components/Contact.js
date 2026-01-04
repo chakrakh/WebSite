@@ -116,9 +116,10 @@ const Contact = () => {
               )}
               {status === 'submitting' && 'Sending...'}
               {status === 'success' && (
-                <>
-                  <CheckCircle className="mr-2 h-5 w-5" /> Message Sent
-                </>
+                <div className="flex items-center text-green-100">
+                  <CheckCircle className="mr-2 h-5 w-5" /> 
+                  <span>Your message has been sent. We'll get back to you ASAP!</span>
+                </div>
               )}
               {status === 'error' && (
                 <>

@@ -132,9 +132,9 @@ const DroneCursor = () => {
           }}
           transition={{ 
             type: "spring", 
-            stiffness: 60,
-            damping: 25,
-            mass: 0.6
+            stiffness: 400, // Increased for responsiveness
+            damping: 28,
+            mass: 0.5
           }}
         >
           {/* Outer ring */}
@@ -150,12 +150,15 @@ const DroneCursor = () => {
             }}
           />
           
-          {/* Center dot */}
+          {/* Center dot - Orbiting */}
           <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-primary"
+            className="absolute top-1/2 left-1/2 w-4 h-4"
+            style={{ x: '-50%', y: '-50%' }}
             animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary" />
+          </motion.div>
         </motion.div>
       )}
     </>
