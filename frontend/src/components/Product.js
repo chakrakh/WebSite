@@ -155,16 +155,16 @@ const Product = () => {
                         <tr>
                             {product.comparison_table ? (
                                 product.comparison_headers.map((header, hIndex) => (
-                                    <th key={hIndex} className={`px-6 py-3 text-left text-xs font-bold uppercase tracking-wider ${hIndex === 2 ? 'text-emerald-700 dark:text-emerald-400 drop-shadow-sm' : 'text-muted-foreground'}`}>
+                                    <th key={hIndex} className={`px-3 py-2 sm:px-6 sm:py-3 text-left text-xs font-bold uppercase tracking-wider ${hIndex === 2 ? 'text-emerald-700 dark:text-emerald-400 drop-shadow-sm' : 'text-muted-foreground'}`}>
                                     {header}
                                     </th>
                                 ))
                             ) : (
                                 <>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Feature</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Manual</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Robotic</th>
-                                <th className="px-6 py-3 text-left text-xs font-bold text-green-500 uppercase tracking-wider">Suryagatra</th>
+                                <th className="px-3 py-2 sm:px-6 sm:py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Feature</th>
+                                <th className="px-3 py-2 sm:px-6 sm:py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Manual</th>
+                                <th className="px-3 py-2 sm:px-6 sm:py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Robotic</th>
+                                <th className="px-3 py-2 sm:px-6 sm:py-3 text-left text-xs font-bold text-green-500 uppercase tracking-wider">Suryagatra</th>
                                 </>
                             )}
                         </tr>
@@ -173,24 +173,24 @@ const Product = () => {
                         {product.comparison_table ? (
                             product.comparison_table.map((row, rIndex) => (
                             <tr key={rIndex} className="hover:bg-muted/30 transition-colors">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">{row.category}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">{row.competitor}</td>
-                                <td className={`px-6 py-4 whitespace-nowrap text-sm font-bold ${product.id === 'haanth' ? 'text-emerald-700 dark:text-emerald-400 drop-shadow-sm' : 'text-primary'}`}>{row.us}</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium text-foreground">{row.category}</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-muted-foreground">{row.competitor}</td>
+                                <td className={`px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold ${product.id === 'haanth' ? 'text-emerald-700 dark:text-emerald-400 drop-shadow-sm' : 'text-primary'}`}>{row.us}</td>
                             </tr>
                             ))
                         ) : (
                             <>
                              <tr className="hover:bg-muted/30 transition-colors">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">Water Usage / Panel</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">~15 Liters</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">100-200 mL</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-500">5-30 mL</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium text-foreground">Water Usage / Panel</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-muted-foreground">~15 Liters</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-muted-foreground">100-200 mL</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-green-500">5-30 mL</td>
                             </tr>
                             <tr className="hover:bg-muted/30 transition-colors">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">Cleaning Cycle</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">Weekly</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">3-10 Days</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-green-500">24 Hours</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-medium text-foreground">Cleaning Cycle</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-muted-foreground">Weekly</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm text-muted-foreground">3-10 Days</td>
+                                <td className="px-3 py-2 sm:px-6 sm:py-4 whitespace-nowrap text-sm font-bold text-green-500">24 Hours</td>
                             </tr>
                             </>
                         )}

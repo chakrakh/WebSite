@@ -21,7 +21,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-5xl sm:text-7xl font-bold text-foreground tracking-tight mb-6"
+          className="text-4xl sm:text-5xl md:text-7xl font-bold text-foreground tracking-tight mb-6"
         >
           Precision in <span className="text-primary">Flight</span>
         </motion.h1>
