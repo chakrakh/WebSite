@@ -28,8 +28,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => window.location.href='/'}>
-            <span className="text-lg sm:text-2xl font-bold text-foreground tracking-tight">CHAKRAKH</span>
-            <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-semibold text-primary uppercase tracking-wider sm:tracking-widest border-l-2 border-primary pl-1 sm:pl-2">Technologies</span>
+            <span className="text-lg sm:text-2xl font-bold text-foreground tracking-widest">CHAKRAKH</span>
+            <span className="ml-1 sm:ml-2 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-wider sm:tracking-widest border-l-2 border-primary pl-1 sm:pl-2">Technologies</span>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">

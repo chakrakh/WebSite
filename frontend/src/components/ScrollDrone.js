@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring, useTransform, useAnimation } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
-const ScrollDrone = () => {
+const ScrollDrone = ({ droneColor = '#3b82f6' }) => {
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
     height: typeof window !== 'undefined' ? window.innerHeight : 0,
   });
 
   const location = useLocation();
-  
-  // Hide drone on /launch-haanth page
   const isHaanthPage = location.pathname === '/launch-haanth';
 
   useEffect(() => {
@@ -59,7 +57,7 @@ const ScrollDrone = () => {
   const scaleRange = useTransform(
     scrollY,
     [0, windowSize.height / 2],
-    [1.5, 0.8] 
+    windowSize.width < 768 ? [0.6, 0.4] : [1.5, 0.8] 
   );
   
   const x = useSpring(xRange, { stiffness: 80, damping: 25 });
@@ -69,38 +67,11 @@ const ScrollDrone = () => {
   const pathOpacity = useTransform(scrollY, [windowSize.height * 0.4, windowSize.height * 0.8], [0, 0.4]);
   const pathLength = useTransform(scrollY, [windowSize.height, docHeight], [0, 1]);
 
-  // --- Interaction & Color Logic ---
+  // --- Interaction Logic ---
   const controls = useAnimation();
   const [showTooltip, setShowTooltip] = useState(true);
-  const [droneColor, setDroneColor] = useState('#3b82f6'); // Default Blue
 
-  // Color Changing Effect
-  useEffect(() => {
-    const colors = [
-      '#ef4444', // Red
-      '#f97316', // Orange
-      '#eab308', // Yellow
-      '#22c55e', // Green
-      '#06b6d4', // Cyan
-      '#3b82f6', // Blue
-      '#8b5cf6', // Violet
-      '#ec4899', // Pink
-      '#14b8a6'  // Teal
-    ];
-
-    let timeoutId;
-    
-    const changeColor = () => {
-       const randomColor = colors[Math.floor(Math.random() * colors.length)];
-       setDroneColor(randomColor);
-       
-       const nextInterval = Math.floor(Math.random() * 2000) + 3000;
-       timeoutId = setTimeout(changeColor, nextInterval);
-    };
-
-    timeoutId = setTimeout(changeColor, 3000);
-    return () => clearTimeout(timeoutId);
-  }, []);
+  // Remove internal color logic, use droneColor prop
 
   // Default Hover Animation
   const startHover = async () => {
@@ -147,7 +118,7 @@ const ScrollDrone = () => {
     startHover();
   };
 
-  if (windowSize.width < 768 || isHaanthPage) return null;
+  if (isHaanthPage) return null;
 
   return (
     <>
@@ -194,7 +165,6 @@ const ScrollDrone = () => {
             <motion.div animate={controls}>
                 <svg width="80" height="80" viewBox="0 0 100 100" className="drop-shadow-xl filter drop-shadow-primary/40">
                     <defs>
-                         {/* Glow Filter */}
                          <filter id="glow">
                             <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
                             <feMerge>
@@ -203,7 +173,6 @@ const ScrollDrone = () => {
                             </feMerge>
                         </filter>
                         
-                        {/* Glossy Reflection Gradient (Top to Bottom) */}
                         <linearGradient id="glossHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stopColor="white" stopOpacity="0.8" />
                             <stop offset="20%" stopColor="white" stopOpacity="0.4" />
@@ -211,7 +180,6 @@ const ScrollDrone = () => {
                             <stop offset="100%" stopColor="black" stopOpacity="0.1" />
                         </linearGradient>
 
-                        {/* Glass Dome Gradient */}
                         <radialGradient id="glassDome" cx="30%" cy="30%" r="70%">
                             <stop offset="0%" stopColor="white" stopOpacity="0.9" />
                             <stop offset="100%" stopColor="white" stopOpacity="0" />
@@ -227,7 +195,6 @@ const ScrollDrone = () => {
                     <path d="M65 50 L85 70" stroke="hsl(var(--foreground))" strokeWidth="4" strokeLinecap="round" />
 
                     {/* === Main Body Chassis === */}
-                    {/* Base Color Layer */}
                     <motion.path 
                       d="M40 35 L60 35 L65 50 L60 65 L40 65 L35 50 Z" 
                       stroke="hsl(var(--foreground))" 
@@ -236,14 +203,12 @@ const ScrollDrone = () => {
                       transition={{ duration: 1 }}
                     />
                     
-                    {/* Gloss Overlay Layer */}
                     <path 
                       d="M40 35 L60 35 L65 50 L60 65 L40 65 L35 50 Z" 
                       fill="url(#glossHighlight)"
                       style={{ mixBlendMode: 'soft-light' }}
                     />
                     
-                    {/* Sharp Specular Highlight (Top Edge) */}
                     <path 
                       d="M42 37 L58 37 L59 39 L41 39 Z"
                       fill="white"
@@ -257,13 +222,11 @@ const ScrollDrone = () => {
                       animate={{ fill: droneColor }}
                       transition={{ duration: 1 }}
                     />
-                    {/* Dome Gloss Reflection */}
                     <circle cx="50" cy="50" r="8" fill="url(#glassDome)" opacity="0.6" />
                     
                     {/* Propeller Motors & Blades */}
                     <g transform="translate(15, 30)">
                         <circle r="4" fill="hsl(var(--foreground))" />
-                        {/* Motor Gloss */}
                         <circle r="3" fill="url(#glassDome)" opacity="0.5" />
                         <g className="animate-[spin_0.08s_linear_infinite]">
                              <ellipse cx="0" cy="0" rx="14" ry="2" fill="hsl(var(--muted-foreground))" opacity="0.5" />
@@ -304,8 +267,7 @@ const ScrollDrone = () => {
                         transition={{ duration: 1, repeat: Infinity }}
                     />
                     
-                    {/* Navigation Lights - synced to drone color for full effect */}
-                    {/* Added white core for glass look */}
+                    {/* Navigation Lights */}
                     <g filter="url(#glow)">
                       <motion.circle cx="15" cy="30" r="1.5" animate={{ fill: droneColor }} transition={{ duration: 1 }} />
                       <circle cx="15" cy="30" r="0.5" fill="white" />

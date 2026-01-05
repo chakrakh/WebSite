@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const DroneCursor = () => {
+const DroneCursor = ({ droneColor = '#3b82f6' }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [clicks, setClicks] = useState([]);
@@ -21,6 +21,7 @@ const DroneCursor = () => {
         id: Date.now(),
         x: e.clientX,
         y: e.clientY,
+        color: droneColor // Store color at click time
       };
       setClicks(prev => [...prev, newClick]);
       
@@ -41,7 +42,7 @@ const DroneCursor = () => {
       window.removeEventListener('click', handleClick);
       document.body.style.cursor = 'auto';
     };
-  }, []);
+  }, [droneColor]);
 
   const [isMobile, setIsMobile] = useState(false);
   
@@ -84,7 +85,7 @@ const DroneCursor = () => {
                 key={i}
                 className="absolute rounded-full"
                 style={{
-                  border: `2px solid ${i === 0 ? '#3b82f6' : i === 1 ? '#60a5fa' : '#93c5fd'}`,
+                  border: `2px solid ${click.color}`,
                   left: '50%',
                   top: '50%',
                 }}
@@ -110,10 +111,10 @@ const DroneCursor = () => {
               />
             ))}
             
-            {/* Center dot */}
+            {/* Center dot burst */}
             <motion.div
-              className="absolute rounded-full bg-primary"
-              style={{ left: '50%', top: '50%' }}
+              className="absolute rounded-full"
+              style={{ left: '50%', top: '50%', backgroundColor: click.color }}
               initial={{ width: 8, height: 8, x: '-50%', y: '-50%', opacity: 1 }}
               animate={{ width: 20, height: 20, x: '-50%', y: '-50%', opacity: 0 }}
               transition={{ duration: 0.3 }}
@@ -132,7 +133,7 @@ const DroneCursor = () => {
           }}
           transition={{ 
             type: "spring", 
-            stiffness: 400, // Increased for responsiveness
+            stiffness: 400,
             damping: 28,
             mass: 0.5
           }}
@@ -142,23 +143,25 @@ const DroneCursor = () => {
             className="w-4 h-4 rounded-full border-2 border-slate-800 dark:border-white"
             animate={{
               scale: [1, 1.1, 1],
+              borderColor: droneColor // Sync ring border color lightly? Or keep it contrasty? User didn't specify, but keeping consistent is safer. Let's keep it black/white for visibility, or maybe just tint it. User asked to "change colors of that dot... and drones change in sync". I will only change the dot color as requested.
             }}
             transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
+              scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
             }}
           />
           
-          {/* Center dot - Orbiting */}
+          {/* Center dot - RIGID & FILLING 75% */}
           <motion.div 
-            className="absolute top-1/2 left-1/2 w-4 h-4"
-            style={{ x: '-50%', y: '-50%' }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          >
-             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary" />
-          </motion.div>
+            className="absolute top-1/2 left-1/2 rounded-full"
+            style={{ 
+                width: '75%', 
+                height: '75%', 
+                x: '-50%', 
+                y: '-50%' 
+            }}
+            animate={{ backgroundColor: droneColor }}
+            transition={{ duration: 1 }}
+          />
         </motion.div>
       )}
     </>
